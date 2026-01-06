@@ -3,5 +3,4 @@ google-generativeai
 pypdf
 fpdf
 reportlab
-pdfminer
-pdfminer.six==20220524
+pdfminer.six>=20221105
