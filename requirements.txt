@@ -4,4 +4,4 @@ pypdf
 fpdf
 reportlab
 pdfminer
-pdfminer.high_level
+pdfminer.six
