@@ -94,7 +94,7 @@ def create_pdf(data, template_type):
         name_size = 26
         section_header_case = "upper" 
         has_lines = False 
-        separator = "  •  "
+        separator = "  •  "
         
     elif template_type == "Minimalist":
         font_header = "Helvetica-Bold"
@@ -356,54 +356,64 @@ st.set_page_config(page_title="Professional Resume Generator", layout="wide")
 # --- SKY BACKGROUND CSS (Unchanged) ---
 st.markdown("""
 <style>
-    [data-testid="stAppViewContainer"] {
-        background-image: url('https://images.unsplash.com/photo-1518066000714-cdcd828ff303?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); 
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        color: #333333;
-        position: relative;
-        overflow: auto;
-    }
+    [data-testid="stAppViewContainer"] {
+        background-image: url('https://images.unsplash.com/photo-1518066000714-cdcd828ff303?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); 
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: #333333;
+        position: relative;
+        overflow: auto;
+    }
 
     [data-testid="stAppViewContainer"]::before {
         content: none !important;
     }
     
-    h1, h2, h3, p, label, .stMarkdown, .stSelectbox label {
-        color: #1f1f1f !important;
-        text-shadow: none;
+    h1, h2, h3, p, label, .stMarkdown, .stSelectbox label {
+        color: #1f1f1f !important;
+        text-shadow: none;
         font-weight: 600;
-    }
+    }
 
     h1 {
         color: #004d40 !important;
     }
-    
-    .stTextInput input, .stTextArea textarea, .stSelectbox > div {
-        background-color: rgba(255, 255, 255, 0.95) !important;
-        color: black !important;
-        border-radius: 5px;
-    }
-    
-    [data-testid="stSidebar"] {
-        background-color: rgba(255, 255, 255, 0.5);
+    
+    .stTextInput input, .stTextArea textarea, .stSelectbox > div {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+        color: black !important;
+        border-radius: 5px;
+    }
+    
+    [data-testid="stSidebar"] {
+        background-color: rgba(255, 255, 255, 0.5);
         color: #1f1f1f !important;
-    }
+    }
 </style>
 """, unsafe_allow_html=True)
 
 st.title("📄 Professional Resume Generator")
 
-# --- API KEY HANDLING ---
+# --- SECURE API KEY HANDLING ---
 try:
     API_KEY = st.secrets["GEMINI_API_KEY"]
-except:
-    # Use the key you provided
-    API_KEY = "AIzaSyAJURjQpLWGvAbDe9hXOuBk9HopbW4RfcM"
-
-if not API_KEY:
-    st.error("⚠️ API Key is missing!")
+except Exception as e:
+    st.error("🔒 **API Key Missing!**")
+    st.warning("""
+    **To use this app, you need to configure your Gemini API key:**
+    
+    **For Streamlit Cloud:**
+    1. Go to your app settings
+    2. Click on "Secrets" 
+    3. Add: `GEMINI_API_KEY = "your-api-key-here"`
+    
+    **For Local Development:**
+    1. Create `.streamlit/secrets.toml` in your project folder
+    2. Add: `GEMINI_API_KEY = "your-api-key-here"`
+    
+    **Get a new API key at:** https://aistudio.google.com/app/apikey
+    """)
     st.stop()
 
 # --- INITIALIZE SESSION STATE WITH NEW KEYS ---
