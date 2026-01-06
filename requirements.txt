@@ -4,4 +4,4 @@ pypdf
 fpdf
 reportlab
 pdfminer
-pdfminer-six
+pdfminer.six==20220524
